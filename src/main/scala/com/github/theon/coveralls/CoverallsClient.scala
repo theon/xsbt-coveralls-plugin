@@ -61,7 +61,7 @@ class ScalaJHttpClient extends HttpClient {
 }
 
 class OpenJdkSafeSsl extends SSLSocketFactory {
-  val child = SSLSocketFactory.getDefault
+  val child = SSLSocketFactory.getDefault.asInstanceOf[SSLSocketFactory]
 
   val safeCiphers = Array(
     "SSL_RSA_WITH_RC4_128_MD5",
@@ -90,8 +90,8 @@ class OpenJdkSafeSsl extends SSLSocketFactory {
   def createSocket(p1: InetAddress, p2: Int) = safeSocket(child.createSocket(p1, p2))
   def createSocket(p1: InetAddress, p2: Int, p3: InetAddress, p4: Int) = safeSocket(child.createSocket(p1, p2, p3, p4))
 
-  def safeSocket(socket: Socket) = sock match {
-    case ssl: SSLSocket => ssl.setEnabledCipherSuites(safeCiphers)
+  def safeSocket(sock: Socket) = sock match {
+    case ssl: SSLSocket => ssl.setEnabledCipherSuites(safeCiphers); ssl
     case other => other
   }
 }
