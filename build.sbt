@@ -50,7 +50,7 @@ publishTo <<= version { (v: String) =>
 }
 
 pomExtra := (
-  <url>https://github.com/theon/scala-uri</url>
+  <url>https://github.com/theon/xsbt-coveralls-plugin</url>
   <licenses>
     <license>
       <name>Apache 2</name>
