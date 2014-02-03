@@ -30,7 +30,7 @@ libraryDependencies ++= Seq (
 
 libraryDependencies <+= (CrossBuilding.pluginSbtVersion) {
   case v if v startsWith "0.13" => Defaults.sbtPluginExtra("com.sqality.scct" % "sbt-scct" % "0.3", "0.13", "2.10")
-  case v if v startsWith "0.12" => Defaults.sbtPluginExtra("com.sqality.scct" % "sbt-scct" % "0.3", "0.12", "2.9.2")
+  case v if v startsWith "0.12" => Defaults.sbtPluginExtra("com.github.scct" % "sbt-scct" % "0.3-SNAPSHOT", "0.12", "2.9.2")
 }
 
 libraryDependencies ++= Seq(
