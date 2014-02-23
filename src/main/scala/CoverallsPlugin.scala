@@ -40,9 +40,9 @@ object CoverallsPlugin extends Plugin with AbstractCoverallsPlugin {
     val coverallsServiceName = SettingKey[Option[String]]("coveralls-service-name")
   }
 
-  lazy val singleProject = ScctPlugin.instrumentSettings ++ coverallsSettings
+  lazy val singleProject = ScoverageSbtPlugin.instrumentSettings ++ coverallsSettings
 
-  lazy val multiProject = ScctPlugin.mergeReportSettings ++ coverallsSettings
+  lazy val multiProject = ScoverageSbtPlugin.instrumentSettings ++ coverallsSettings
 
   lazy val coverallsSettings: Seq[Setting[_]] = Seq (
     encoding := "UTF-8",
@@ -107,7 +107,7 @@ trait AbstractCoverallsPlugin  {
     }
 
     //Run the scct plugin to generate code coverage
-    currState = Command.process("scct:test", currState)
+    currState = Command.process("scoverage:test", currState)
 
     //Users can encode their source files in whatever encoding they desire, however when we send their source code to
     //the coveralls API, it is a JSON payload. RFC4627 states that JSON must be UTF encoded.
@@ -133,7 +133,7 @@ trait AbstractCoverallsPlugin  {
       (CoberturaFile(rootCoberturaFile, rootProjectDir) +: childCoberturaFiles).filter(_.exists)
 
     if(allCoberturaFiles.isEmpty) {
-      currState.log.error("Could not find any cobertura.xml files. Has SCCT run?")
+      currState.log.error("Could not find any cobertura.xml files. Has scoverage run?")
       return currState.fail
     }
 

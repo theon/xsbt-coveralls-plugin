@@ -16,7 +16,7 @@ class CoverallsClientTest extends WordSpec with BeforeAndAfterAll with ShouldMat
     "making API call" should {
       "return a valid response for success" in {
         val testHttpClient = new TestSuccessHttpClient()
-        val coverallsClient = new CoverallsClient(testHttpClient, Codec(Codec.UTF8), JsonEncoding.UTF8)
+        val coverallsClient = new CoverallsClient(testHttpClient, Codec("UTF-8"), JsonEncoding.UTF8)
 
         val response = coverallsClient.postFile(new File("src/test/resources/TestSourceFile.scala"))
 
@@ -27,7 +27,7 @@ class CoverallsClientTest extends WordSpec with BeforeAndAfterAll with ShouldMat
       }
       "return a valid response with Korean for success" in {
         val testHttpClient = new TestSuccessHttpClient()
-        val coverallsClient = new CoverallsClient(testHttpClient, Codec(Codec.UTF8), JsonEncoding.UTF8)
+        val coverallsClient = new CoverallsClient(testHttpClient, Codec("UTF-8"), JsonEncoding.UTF8)
 
         val response = coverallsClient.postFile(new File("src/test/resources/TestSourceFileWithKorean.scala"))
 

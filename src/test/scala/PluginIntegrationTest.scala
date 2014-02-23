@@ -37,7 +37,7 @@ class PluginIntegrationTest extends WordSpec with BeforeAndAfterAll with ShouldM
     "Run happy path" should {
       "display successful output" in {
         val logger = new TestLogger()
-        val state = State(null, Seq(), Set(), None, Seq(), null, null, new GlobalLogging(logger, null, null), null)
+        val state = State(null, Nil, Set.empty, None, Nil, null, null, new GlobalLogging(logger, null, null, null, null), null)
 
         SuccessTestCoverallsPlugin.coverallsCommand(state, projectRoot, coberturaFile, Nil, coverallsFile, "UTF-8", None, None, None)
 
@@ -49,7 +49,7 @@ class PluginIntegrationTest extends WordSpec with BeforeAndAfterAll with ShouldM
     "API fails" should {
       "display successful failure message" in {
         val logger = new TestLogger()
-        val state = State(null, Seq(), Set(), None, Seq(), null, null, new GlobalLogging(logger, null, null), null)
+        val state = State(null, Seq(), Set(), None, Seq(), null, null, new GlobalLogging(logger, null, null, null, null), null)
 
         FailureTestCoverallsPlugin.coverallsCommand(state, projectRoot, coberturaFile, Nil, coverallsFile, "UTF-8", None, None, None)
 
@@ -60,7 +60,7 @@ class PluginIntegrationTest extends WordSpec with BeforeAndAfterAll with ShouldM
     "No Repo Token or Travis Job Id" should {
       "display some useful information to the user" in {
         val logger = new TestLogger()
-        val state = State(null, Seq(), Set(), None, Seq(), null, null, new GlobalLogging(logger, null, null), null)
+        val state = State(null, Seq(), Set(), None, Seq(), null, null, new GlobalLogging(logger, null, null, null, null), null)
 
         NoRepoTokenOfTravisJobIdTestCoverallsPlugin.coverallsCommand(state, projectRoot, coberturaFile, Nil, coverallsFile, "UTF-8", None, None, None)
 

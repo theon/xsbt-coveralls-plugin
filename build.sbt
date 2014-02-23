@@ -4,13 +4,9 @@ organization  := "com.github.theon"
 
 version       := "0.0.5-SNAPSHOT"
 
-scalaVersion  := "2.9.2"
+scalaVersion  := "2.10.3"
 
 sbtPlugin := true
-
-crossBuildingSettings
-
-CrossBuilding.crossSbtVersions := Seq("0.12", "0.13")
 
 publishMavenStyle := true
 
@@ -28,18 +24,14 @@ libraryDependencies ++= Seq (
   "org.scalaj" %% "scalaj-http" % "0.3.6"
 )
 
-libraryDependencies <+= (CrossBuilding.pluginSbtVersion) {
-  case v if v startsWith "0.13" => Defaults.sbtPluginExtra("com.github.scct" % "sbt-scct" % "0.3-SNAPSHOT", "0.13", "2.10")
-  case v if v startsWith "0.12" => Defaults.sbtPluginExtra("com.github.scct" % "sbt-scct" % "0.3-SNAPSHOT", "0.12", "2.9.2")
-}
+addSbtPlugin("com.sksamuel.scoverage" %% "sbt-scoverage" % "0.95.7")
 
 libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "1.9.1" % "test",
   "org.mockito" % "mockito-core" % "1.9.5"
 )
 
-
-seq(CoverallsPlugin.singleProject: _*)
+CoverallsPlugin.singleProject
 
 publishTo <<= version { (v: String) =>
   val nexus = "https://oss.sonatype.org/"
